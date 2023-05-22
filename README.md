@@ -1,2 +1,2 @@
 # Chaweket
-Chatting Websocket
+Frontend Chatting Websocket
