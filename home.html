@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #messages {
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">WebSocket Chat</h1>
+        <div class="flex mb-4">
+            <input type="text" id="username" class="w-1/4 mr-2 p-2 border border-gray-300 rounded" placeholder="Username">
+            <input type="text" id="message" class="flex-1 mr-2 p-2 border border-gray-300 rounded" placeholder="Message">
+            <div class="input-group-append">
+                <button id="send" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">Send</button>
+            </div>
+        </div>
+        <div id="messages" class="border p-3 mb-3"></div>
+    </div>
+
+    <script>
+        $(function() {
+            var socket = new WebSocket("wss://websoket-haris.herokuapp.com/ws?username=" + encodeURIComponent($('#username').val()));
+
+            socket.onmessage = function(event) {
+                var message = JSON.parse(event.data);
+                var content = "<strong>" + message.username + ":</strong> " + message.content + "<br />";
+                $('#messages').append(content);
+            };
+
+            $('#send').click(function() {
+                var message = {
+                    username: $('#username').val(),
+                    content: $('#message').val()
+                };
+                socket.send(JSON.stringify(message));
+                $('#message').val('');
+            });
+        });
+    </script>
+</body>
+</html>
