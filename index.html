@@ -33,6 +33,25 @@
         </div>
 </div>
 <script type="text/javascript">
+     $(function() {
+            var socket = new WebSocket("wss://cha-weket.herokuapp.com//ws?username=" + encodeURIComponent($('#username').val()));
+
+            socket.onmessage = function(event) {
+                var message = JSON.parse(event.data);
+                var content = "<strong>" + message.username + ":</strong> " + message.content + "<br />";
+                $('#messages').append(content);
+            };
+
+            $('#send').click(function() {
+                var message = {
+                    username: $('#username').val(),
+                    content: $('#message').val()
+                };
+                socket.send(JSON.stringify(message));
+                $('#message').val('');
+            });
+        });
+
     var app = {}
     app.ws = undefined
     app.container = undefined
@@ -48,7 +67,7 @@ app.init = function () {
 
     app.container = document.querySelector('.container')
 
-    app.ws = new WebSocket("ws://https://tra-websocket.herokuapp.com//ws?username=" + name)
+    app.ws = new WebSocket("ws://cha-weket.herokuapp.com///ws?username=" + name)
 
     app.ws.onopen = function() {
         var message = '<b>me</b>: connected'
