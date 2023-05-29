@@ -56,7 +56,7 @@
     app.ws = undefined
     app.container = undefined
 
-app.init = function () {
+    app.init = function () {
     if (!(window.WebSocket)) {
         alert('Your browser does not support WebSocket')
         return
@@ -67,7 +67,7 @@ app.init = function () {
 
     app.container = document.querySelector('.container')
 
-    app.ws = new WebSocket("ws://cha-weket.herokuapp.com///ws?username=" + name)
+    app.ws = new WebSocket("ws://tra-websockket.herokuapp.com///ws?username=" + name)
 
     app.ws.onopen = function() {
         var message = '<b>me</b>: connected'
