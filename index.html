@@ -15,7 +15,9 @@
 <body>
 <div class="container">
     <div class="row">
+        <div class="border p-2 mb-2">
         <h1>ChaWeKet - Chat Websocket</h1>
+    </div>
     </div>
     <hr class="border border-secondary-subtle border-2 opacity-50"> 
         <div id="messages" class="border p-2 mb-2"></div>
@@ -23,17 +25,17 @@
         <div class="form">
             <form onsubmit="app.doSendMessage(); return false;">
                 <div class="placeholder">
-                    <label>Hello <b class="username"></b>. Say something:</label>
+                    <label>Welcome <b class="username"></b>. Say something:</label>
                 </div>
-                <input class="input-message" type="text" placeholder="Enter message">
-                <button type="submit">Send</button>
+                <input class="flex-1 mr-2 p-2 border border-gray-300 rounded" type="text"  placeholder="Enter message">
+                <button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-orange-500" >Send</button>
             </form>
         </div>
 </div>
 <script type="text/javascript">
     var app = {}
-app.ws = undefined
-app.container = undefined
+    app.ws = undefined
+    app.container = undefined
 
 app.init = function () {
     if (!(window.WebSocket)) {
@@ -46,7 +48,7 @@ app.init = function () {
 
     app.container = document.querySelector('.container')
 
-    app.ws = new WebSocket("ws://localhost:8080/ws?username=" + name)
+    app.ws = new WebSocket("ws://https://tra-websocket.herokuapp.com//ws?username=" + name)
 
     app.ws.onopen = function() {
         var message = '<b>me</b>: connected'
